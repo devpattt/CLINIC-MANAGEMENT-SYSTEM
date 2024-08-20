@@ -357,7 +357,8 @@
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="forms-layouts.php">
+            <a href="forms-layouts.php
+            ">
               <i class="bi bi-circle"></i><span>Patient Records Table</span>
             </a>
           </li>
