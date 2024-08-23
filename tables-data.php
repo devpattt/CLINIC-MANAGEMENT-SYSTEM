@@ -265,23 +265,22 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link " data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i><span>Health Records</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="forms-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="forms-elements.php">
+            <a href="forms-elements.php" >
               <i class="bi bi-circle"></i><span>Add Record</span>
             </a>
           </li>
-          <li>  
+          <li>
             <a href="tables-data.php" class="active">
               <i class="bi bi-circle"></i><span>Data Tables</span>
             </a>
           </li>
         </ul>
       </li><!-- End Forms Nav -->
-    
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
