@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Tables / Data - NiceAdmin Bootstrap Template</title>
+  <title>Clinc Management System / Data Tables</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
   <link href="assets/img/bcp logo.png" rel="icon">
