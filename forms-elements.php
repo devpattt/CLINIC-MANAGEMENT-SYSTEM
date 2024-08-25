@@ -376,7 +376,7 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">General Form Elements</h5>
+              <h5 class="card-title">Patient informations</h5>
 
               <!-- General Form Elements -->
               <form>
@@ -422,7 +422,7 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Advanced Form Elements</h5>
+              <h5 class="card-title">Additional Informations</h5>
 
               <!-- Advanced Form Elements -->
               <form>
