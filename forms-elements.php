@@ -411,10 +411,8 @@
                   </div>
                 </div>
               </form><!-- End General Form Elements -->
-
             </div>
           </div>
-
         </div>
 
         <div class="col-lg-6">
