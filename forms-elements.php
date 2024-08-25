@@ -352,9 +352,7 @@
           <span>Blank</span>
         </a>
       </li><!-- End Blank Page Nav -->
-
     </ul>
-
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
