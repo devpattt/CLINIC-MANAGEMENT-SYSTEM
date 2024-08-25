@@ -461,15 +461,12 @@
                     <button type="submit" class="btn btn-primary">Submit Form</button>
                   </div>
                 </div>
-              </form><!-- End General Form Elements -->
-
+              </form>
             </div>
           </div>
-
         </div>
       </div>
     </section>
-
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
