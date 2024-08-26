@@ -395,6 +395,7 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Additional Informations</h5>
+              
               <!-- Advanced Form Elements -->
               <form>
               <div class="row mb-3">
