@@ -35,7 +35,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 300px;
     text-align: center;
-    border: 1px solid #ddd; /* Adding a light gray border */
+    border: 1px solid #ddd; 
 }
 
 h2 {
