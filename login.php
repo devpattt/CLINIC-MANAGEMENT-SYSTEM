@@ -95,7 +95,6 @@ button {
 
 button:hover {
     background-color: #555; /* Darker shade on hover */
-    border: 1px solid #333; /* Optional: Add a border on hover for emphasis */
 }
 </style>
 
@@ -103,7 +102,6 @@ button:hover {
     <div class="logo">
         <img src="assets/img/bcp logo.png" alt="Clinic Management System">
     </div>
-    
     <div class="login-container">
         <h2>Log Into Your Account</h2>
         <form id="loginForm">
