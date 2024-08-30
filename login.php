@@ -94,7 +94,7 @@ button:hover {
 <body>
     <!-- Logo at the top -->
     <div class="logo">
-        <img src="assets/logo.jpg" alt="Clinic Management System">
+        <img src="assets/img/bcp logo.png" alt="Clinic Management System">
     </div>
     
     <!-- Container with form elements only -->
