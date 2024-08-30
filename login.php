@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <style>
-    /* styles.css */
+
 body {
     background-color: #f4f4f4;
     font-family: Arial, sans-serif;
