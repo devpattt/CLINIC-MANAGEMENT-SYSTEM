@@ -57,6 +57,13 @@ input[type="password"] {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Adding transition for smooth hover effect */
+}
+
+input[type="text"]:hover,
+input[type="password"]:hover {
+    border-color: #333; /* Change border color on hover */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Add subtle shadow on hover */
 }
 
 .forgot-password {
@@ -83,7 +90,7 @@ button {
     width: 100%;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s ease; /* Adding transition for smooth hover effect */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Adding transition for smooth hover effect */
 }
 
 button:hover {
@@ -91,10 +98,12 @@ button:hover {
     border: 1px solid #333; /* Optional: Add a border on hover for emphasis */
 }
 </style>
+
 <body>
     <div class="logo">
         <img src="assets/img/bcp logo.png" alt="Clinic Management System">
     </div>
+    
     <div class="login-container">
         <h2>Log Into Your Account</h2>
         <form id="loginForm">
