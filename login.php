@@ -112,6 +112,6 @@ button:hover {
         </form>
     </div>
 
-    <script src="script.js"></script>
+    <script src="loginsc.js"></script>
 </body>
 </html>
