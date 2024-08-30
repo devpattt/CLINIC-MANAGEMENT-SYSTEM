@@ -95,8 +95,6 @@ button:hover {
     <div class="logo">
         <img src="assets/img/bcp logo.png" alt="Clinic Management System">
     </div>
-    
-    <!-- Container with form elements only -->
     <div class="login-container">
         <h2>Log Into Your Account</h2>
         <form id="loginForm">
