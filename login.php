@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <style>
-
 body {
     background-color: #f4f4f4;
     font-family: Arial, sans-serif;
@@ -35,7 +34,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 300px;
     text-align: center;
-    border: 1px solid #ddd; 
+    border: 1px solid black; /* Updated border color to black */
 }
 
 h2 {
@@ -84,12 +83,13 @@ button {
     width: 100%;
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.3s ease; /* Adding transition for smooth hover effect */
 }
 
 button:hover {
-    background-color: #555;
+    background-color: #555; /* Darker shade on hover */
+    border: 1px solid #333; /* Optional: Add a border on hover for emphasis */
 }
-
 </style>
 <body>
     <div class="logo">
