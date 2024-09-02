@@ -156,6 +156,10 @@ button:hover {
     
     <div class="login-container">
         <h2>Log Into Your Account</h2>
+        <?php if (!empty($error)): ?>
+                <div class="error-message" style="color: red;">
+                    <?= $error ?>
+            <?php endif; ?>
         <form id="loginForm" action="login.php" method="post">
             <label for="accountId">Account ID</label>
             <input type="text" id="accountId" name="accountId" required aria-label="Account ID">
