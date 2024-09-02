@@ -385,12 +385,14 @@
                     </select>
                   </div>
                 </div>
+
                 <div class="row mb-3">
-                  <label for="inputNumber" class="col-sm-2 col-form-label">Age</label>
-                  <div class="col-sm-10">
-                    <input type="number" class="form-control" placeholder="Enter Age">
+                    <label for="inputNumber" class="col-sm-2 col-form-label">Age</label>
+                    <div class="col-sm-10">
+                      <input type="number" class="form-control" id="inputNumber" name="age" placeholder="Enter Age" min="1" max="100" required>
+                    </div>
                   </div>
-                </div>
+
                 <div class="row mb-3">
                   <label for="inputTemp" class="col-sm-2 col-form-label">Temp (°C)</label>
                   <div class="col-sm-10">
@@ -425,22 +427,28 @@
                 </div>
 
                 <div class="row mb-3">
-                  <label for="inputPassword" class="col-sm-2 col-form-label">Note</label>
-                  <div class="col-sm-10">
-                    <textarea class="form-control" style="height: 100px" placeholder="Enter Recommendations"></textarea>
+                    <label class="col-sm-2 col-form-label">Condition</label>
+                    <div class="col-sm-10">
+                     <select class="form-select" style="border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border: 1px solid black;" aria-label="Select Condition">
+                        <option selected disabled>Open this select menu</option>
+                        <option value="fever">Fever</option>
+                        <option value="cough">Cough</option>
+                        <option value="headache">Headache</option>
+                        <option value="stomachache">Stomach Ache</option>
+                        <option value="injury">Injury</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </div>
                   </div>
+
+
+                  <div class="row mb-3">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Note</label>
+                      <div class="col-sm-10">
+                        <textarea class="form-control" style="height: 100px" placeholder="Enter Recommendations"></textarea>
+                      </div>
                 </div>
-                <div class="row mb-3">
-                  <label class="col-sm-2 col-form-label">Select</label>
-                  <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example">
-                      <option selected>Open this select menu</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </select>
-                  </div>
-                </div>
+
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label"></label>
                   <div class="col-sm-10">
@@ -477,6 +485,12 @@
     var todayDate = year + '-' + month + '-' + day;
     dateInput.setAttribute('min', todayDate);
   });
+
+  document.getElementById('inputNumber').addEventListener('input', function() {
+    var ageInput = document.getElementById('inputNumber');
+    var ageValue = ageInput.value;
+    }
+  );
 </script>
 
 </body>
