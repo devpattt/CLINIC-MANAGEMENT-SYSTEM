@@ -34,9 +34,28 @@ h6 {
   border: 1px solid black; 
 }
 
-/*--------------------------------------------------------------
-# Main
---------------------------------------------------------------*/
+/* Add border color to the input fields */
+#Fullname, #Position, #Email, #AccountID, #Password {
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid black; 
+}
+
+/* Style for the checkbox */
+#acceptTerms {
+  border-radius: 3px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid black; 
+  width: 18px;
+  height: 18px;
+}
+
+/* Optional: Add some margin to space out the checkbox and label */
+.form-check-label {
+  margin-left: 5px;
+}
+
+
 #main {
   margin-top: 60px;
   padding: 20px 30px;
