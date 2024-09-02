@@ -1,43 +1,43 @@
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bcpclinic_db";
+  <?php
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "bcpclinic_db";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+  $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
+  // Check connection
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
 
-// Collect form data
-$fullname = isset($_POST['fullname']) ? $_POST['fullname'] : '';
-$student_number = isset($_POST['student_number']) ? $_POST['student_number'] : '';
-$contact = isset($_POST['contact']) ? $_POST['contact'] : '';
-$gender = isset($_POST['gender']) ? $_POST['gender'] : '';
-$age = isset($_POST['age']) ? $_POST['age'] : '';
-$temperature = isset($_POST['temperature']) ? $_POST['temperature'] : '';
-$date = isset($_POST['date']) ? $_POST['date'] : '';
-$time = isset($_POST['time']) ? $_POST['time'] : '';
-$condition = isset($_POST['condition']) ? $_POST['condition'] : '';
-$note = isset($_POST['note']) ? $_POST['note'] : '';
+  // Collect form data
+  $fullname = isset($_POST['fullname']) ? $_POST['fullname'] : '';
+  $student_number = isset($_POST['student_number']) ? $_POST['student_number'] : '';
+  $contact = isset($_POST['contact']) ? $_POST['contact'] : '';
+  $gender = isset($_POST['gender']) ? $_POST['gender'] : '';
+  $age = isset($_POST['age']) ? $_POST['age'] : '';
+  $temperature = isset($_POST['temperature']) ? $_POST['temperature'] : '';
+  $date = isset($_POST['date']) ? $_POST['date'] : '';
+  $time = isset($_POST['time']) ? $_POST['time'] : '';
+  $condition = isset($_POST['condition']) ? $_POST['condition'] : '';
+  $note = isset($_POST['note']) ? $_POST['note'] : '';
 
-// Prepare and bind
-$stmt = $conn->prepare("INSERT INTO patient_info (fullname, student_number, contact, gender, age, temperature, date, time, `condition`, note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("ssssisssss", $fullname, $student_number, $contact, $gender, $age, $temperature, $date, $time, $condition, $note);
+  // Prepare and bind
+  $stmt = $conn->prepare("INSERT INTO patient_info (fullname, student_number, contact, gender, age, temperature, date, time, `condition`, note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+  $stmt->bind_param("ssssisssss", $fullname, $student_number, $contact, $gender, $age, $temperature, $date, $time, $condition, $note);
 
-// Execute the statement
-if ($stmt->execute()) {
-  echo "New record created successfully";
-} else {
-  echo "Error: " . $stmt->error;
-}
+  // Execute the statement
+  if ($stmt->execute()) {
+    echo "New record created successfully";
+  } else {
+    echo "Error: " . $stmt->error;
+  }
 
-// Close connections
-$stmt->close();
-$conn->close();
-?>
+  // Close connections
+  $stmt->close();
+  $conn->close();
+  ?>
 
 
 <!DOCTYPE html>
@@ -395,92 +395,114 @@ $conn->close();
             <div class="card-body">
               <h5 class="card-title">Patient informations</h5>
 
-              <!-- General Form Elements -->
-              <!-- General Form Elements -->
-              <form method="post" action="forms-elements.php">
-                <div class="row mb-3">
-                  <label for="inputText" class="col-sm-2 col-form-label">Fullname</label>
-                  <div class="col-sm-10">
-                    <input type="text" name="fullname" class="form-control" placeholder="Enter Fullname" required>
+                <!-- General Form Elements -->
+                <form method="post" action="forms-elements.php">
+                  <div class="row mb-3">
+                    <label for="inputText" class="col-sm-2 col-form-label">Fullname</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="fullname" class="form-control" placeholder="Enter Fullname">
+                    </div>
                   </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="inputEmail" class="col-sm-2 col-form-label">Student Number</label>
-                  <div class="col-sm-10">
-                    <input type="text" name="student_number" class="form-control" placeholder="Enter Student Number" required>
+                  <div class="row mb-3">
+                    <label for="inputEmail" class="col-sm-2 col-form-label">Student Number</label>
+                    <div class="col-sm-10">
+                      <input type="email" name="student_number" class="form-control" placeholder="Enter Student Number">
+                    </div>
                   </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="inputEmail" class="col-sm-2 col-form-label">Contact</label>
-                  <div class="col-sm-10">
-                    <input type="text" name="contact" class="form-control" placeholder="Enter Contact" required>
+                  <div class="row mb-3">
+                    <label for="inputEmail" class="col-sm-2 col-form-label">Contact</label>
+                    <div class="col-sm-10">
+                      <input type="email" name="contact" class="form-control" placeholder="Enter Contact">
+                    </div>
                   </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="inputGender" class="col-sm-2 col-form-label">Gender</label>
-                  <div class="col-sm-10">
-                    <select class="form-control" id="inputGender" name="gender" required>
-                      <option value="">Select Gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="other">Other</option>
-                      <option value="prefer_not_to_say">Prefer not to say</option>
-                    </select>
+                  <div class="row mb-3">
+                    <label for="inputGender" class="col-sm-2 col-form-label">Gender</label>
+                    <div class="col-sm-10">
+                      <select class="form-control" id="inputGender" name="gender">
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                        <option value="prefer_not_to_say">Prefer not to say</option>
+                      </select>
+                    </div>
                   </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="inputNumber" class="col-sm-2 col-form-label">Age</label>
-                  <div class="col-sm-10">
-                    <input type="number" class="form-control" id="inputNumber" name="age" placeholder="Enter Age" min="1" max="100" required>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="inputTemp" class="col-sm-2 col-form-label">Temp (°C)</label>
-                  <div class="col-sm-10">
-                    <input type="number" class="form-control" id="inputTemp" name="temperature" placeholder="Enter Temperature" step="0.1" min="-50" max="50">
-                  </div>
-                </div>
 
-                <!-- Additional Informations -->
-                <div class="row mb-3">
-                  <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
-                  <div class="col-sm-10">
-                    <input type="date" class="form-control" id="inputDate" name="date" required>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="inputTime" class="col-sm-2 col-form-label">Time</label>
-                  <div class="col-sm-10">
-                    <input type="time" class="form-control" id="inputTime" name="time" required>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label class="col-sm-2 col-form-label">Condition</label>
-                  <div class="col-sm-10">
-                    <select class="form-select" style="border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border: 1px solid black;" name="condition" aria-label="Select Condition" required>
-                      <option value="" selected disabled>Open this select menu</option>
-                      <option value="fever">Fever</option>
-                      <option value="cough">Cough</option>
-                      <option value="headache">Headache</option>
-                      <option value="stomachache">Stomach Ache</option>
-                      <option value="injury">Injury</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="inputNote" class="col-sm-2 col-form-label">Note</label>
-                  <div class="col-sm-10">
-                    <textarea class="form-control" id="inputNote" name="note" style="height: 100px" placeholder="Enter Recommendations"></textarea>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="col-sm-10 offset-sm-2">
-                    <button type="submit" class="btn btn-primary">Submit Form</button>
-                  </div>
-                </div>
-              </form>
+                  <div class="row mb-3">
+                      <label for="inputNumber" class="col-sm-2 col-form-label">Age</label>
+                      <div class="col-sm-10">
+                        <input type="number" class="form-control" id="inputNumber" name="age" placeholder="Enter Age" min="1" max="100" required>
+                      </div>
+                    </div>
 
+                  <div class="row mb-3">
+                    <label for="inputTemp" class="col-sm-2 col-form-label">Temp (°C)</label>
+                    <div class="col-sm-10">
+                      <input type="number" class="form-control" id="inputTemp" name="temperature" placeholder="Enter temperature" step="0.1" min="-50" max="50">
+                    </div>
+                  </div>
+
+                </form><!-- End General Form Elements -->
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Additional Informations</h5>
+                
+                <!-- Advanced Form Elements -->
+                <form>
+                <div class="row mb-3">
+                    <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
+                    <div class="col-sm-10">
+                      <input type="date" class="form-control" id="inputDate" name="date" required>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="inputTime" class="col-sm-2 col-form-label">Time</label>
+                    <div class="col-sm-10">
+                      <input type="time" class="form-control" id="inputTime" name="time" required>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label">Condition</label>
+                      <div class="col-sm-10">
+                      <select class="form-select" style="border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border: 1px solid black;" name="condition" aria-label="Select Condition">  
+                          <option selected disabled>Open this select menu</option>
+                          <option value="fever">Fever</option>
+                          <option value="cough">Cough</option>
+                          <option value="headache">Headache</option>
+                          <option value="stomachache">Stomach Ache</option>
+                          <option value="injury">Injury</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+                    </div>
+
+
+                    <div class="row mb-3">
+                      <label for="inputPassword" class="col-sm-2 col-form-label">Note</label>
+                        <div class="col-sm-10">
+                          <textarea class="form-control" style="height: 100px" name="note" placeholder="Enter Recommendations"></textarea>
+                        </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                      <button type="submit" class="btn btn-primary">Submit Form</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
             </div>
           </div>
         </div>
