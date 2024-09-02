@@ -6,6 +6,9 @@ $dbname = "bcpclinic_db";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
+$message = ""; // Initialize an empty message variable
+$message_type = ""; // Initialize message type variable
+
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -17,18 +20,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $account_id = $_POST['account_id'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT); 
 
-    $sql = "INSERT INTO users (fullname, position, email, account_id, password)
+    $sql = "INSERT INTO nurse_db (Fname, Position, Email, accountId, password)
             VALUES ('$fullname', '$position', '$email', '$account_id', '$password')";
 
     if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
+        $message = "<div id='message' class='alert alert-success'>New record created successfully</div>";
+        $message_type = "success";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        $message = "<div id='message' class='alert alert-danger'>Error: " . $conn->error . "</div>";
+        $message_type = "error";
     }
 
     $conn->close();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -75,55 +81,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <p class="text-center small">Enter personal details to create account</p>
                   </div>
 
+                    <!-- Display success or error message here -->
+                    <?php if (!empty($message)) echo $message; ?>
+
                   <form class="row g-3 needs-validation" action="pages-register.php" method="POST" novalidate>
-                    <div class="col-12">
-                      <label for="yourFullname" class="form-label">Fullname</label>
-                      <input type="text" name="name" class="form-control" id="Fullname" required>
-                      <div class="invalid-feedback">Please, enter your Fullname!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="Position" class="form-label">Position</label>
-                      <select name="position" class="form-control" id="Position" required>
-                        <option value="">Select Position</option>
-                        <option value="nurse">Nurse</option>
-                        <option value="doctor">Doctor</option>
-                      </select>
-                      <div class="invalid-feedback">Please select a Position</div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="Email" class="form-label">Email</label>
-                      <input type="email" name="email" class="form-control" id="Email" required>
-                      <div class="invalid-feedback">Please enter a valid Email adddress!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="AccountID" class="form-label">AccountID</label>
-                      <input type="password" name="password" class="form-control" id="AccountID" required>
-                      <div class="invalid-feedback">Please enter a valid AccountID</div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="Password" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="Password" required>
-                      <div class="invalid-feedback">Please enter a valid Password</div>
-                    </div>
-
-                    <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                        <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
-                        <div class="invalid-feedback">You must agree before submitting.</div>
+                      <div class="col-12">
+                          <label for="yourFullname" class="form-label">Fullname</label>
+                          <input type="text" name="name" class="form-control" id="Fullname" required>
+                          <div class="invalid-feedback">Please, enter your Fullname!</div>
                       </div>
-                    </div>
-                    <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Create Account</button>
-                    </div>
-                    <div class="col-12">
-                      <p class="small mb-0">Add SuperAdmin <a href="pages-login.html">Click here</a></p>
-                    </div>
+
+                      <div class="col-12">
+                          <label for="Position" class="form-label">Position</label>
+                          <select name="position" class="form-control" id="Position" required>
+                              <option value="">Select Position</option>
+                              <option value="nurse">Nurse</option>
+                              <option value="doctor">Doctor</option>
+                          </select>
+                          <div class="invalid-feedback">Please select a Position</div>
+                      </div>
+
+                      <div class="col-12">
+                          <label for="Email" class="form-label">Email</label>
+                          <input type="email" name="email" class="form-control" id="Email" required>
+                          <div class="invalid-feedback">Please enter a valid Email address!</div>
+                      </div>
+
+                      <div class="col-12">
+                          <label for="AccountID" class="form-label">AccountID</label>
+                          <input type="password" name="account_id" class="form-control" id="AccountID" required> <!-- Make sure this field name is account_id -->
+                          <div class="invalid-feedback">Please enter a valid AccountID</div>
+                      </div>
+
+                      <div class="col-12">
+                          <label for="Password" class="form-label">Password</label>
+                          <input type="password" name="password" class="form-control" id="Password" required>
+                          <div class="invalid-feedback">Please enter a valid Password</div>
+                      </div>
+
+                      <div class="col-12">
+                          <div class="form-check">
+                              <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
+                              <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
+                              <div class="invalid-feedback">You must agree before submitting.</div>
+                          </div>
+                      </div>
+                      <div class="col-12">
+                          <button class="btn btn-primary w-100" type="submit">Create Account</button>
+                      </div>
+                      <div class="col-12">
+                          <p class="small mb-0">Add SuperAdmin <a href="pages-login.html">Click here</a></p>
+                      </div>
                   </form>
+
                 </div>
               </div>
             </div>
@@ -147,6 +157,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const message = document.getElementById('message');
+        if (message) {
+            setTimeout(function () {
+                message.style.opacity = 0;
+                setTimeout(function () {
+                    message.style.display = 'none';
+                }, 600); // Match the transition duration
+            }, 3000); // Duration before hiding (3 seconds)
+        }
+    });
+  </script>
 
 </body>
 
