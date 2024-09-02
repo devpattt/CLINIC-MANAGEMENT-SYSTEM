@@ -236,7 +236,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="logout.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -269,12 +269,12 @@
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="forms-elements.php">
-              <i class="bi bi-circle"></i><span>Add Record</span>
+              <i class="bi bi-circle"></i><span>Add Records</span>
             </a>
           </li>
           <li>
             <a href="tables-data.php">
-              <i class="bi bi-circle"></i><span>Data Tables</span>
+              <i class="bi bi-circle"></i><span>Patient Records</span>
             </a>
           </li>
         </ul>
