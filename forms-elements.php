@@ -1,44 +1,44 @@
-  <?php
-  $servername = "localhost";
-  $username = "root";
-  $password = "";
-  $dbname = "bcpclinic_db";
+<?php
+session_start(); 
 
-  $conn = new mysqli($servername, $username, $password, $dbname);
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "bcpclinic_db";
 
-  // Check connection
-  if ($conn->connect_error) {
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-  }
+}
 
-  // Collect form data
-  $fullname = isset($_POST['fullname']) ? $_POST['fullname'] : '';
-  $student_number = isset($_POST['student_number']) ? $_POST['student_number'] : '';
-  $contact = isset($_POST['contact']) ? $_POST['contact'] : '';
-  $gender = isset($_POST['gender']) ? $_POST['gender'] : '';
-  $age = isset($_POST['age']) ? $_POST['age'] : '';
-  $temperature = isset($_POST['temperature']) ? $_POST['temperature'] : '';
-  $date = isset($_POST['date']) ? $_POST['date'] : '';
-  $time = isset($_POST['time']) ? $_POST['time'] : '';
-  $condition = isset($_POST['condition']) ? $_POST['condition'] : '';
-  $note = isset($_POST['note']) ? $_POST['note'] : '';
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $fullname = $_POST['fullname'];
+    $student_number = $_POST['student_number'];
+    $contact = $_POST['contact'];
+    $gender = $_POST['gender'];
+    $age = $_POST['age'];
+    $temperature = $_POST['temperature'];
+    $date = $_POST['date'];
+    $time = $_POST['time'];
+    $condition = $_POST['condition'];
+    $note = $_POST['note'];
 
-  // Prepare and bind
-  $stmt = $conn->prepare("INSERT INTO patient_info (fullname, student_number, contact, gender, age, temperature, date, time, `condition`, note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-  $stmt->bind_param("ssssisssss", $fullname, $student_number, $contact, $gender, $age, $temperature, $date, $time, $condition, $note);
+     $sql = "INSERT INTO patient_info (fullname, student_number, contact, gender, age, temperature, date, time, `condition`, note)
+     VALUES ('$fullname', '$student_number', '$contact', '$gender', '$age', '$temperature', '$date', '$time', '$condition', '$note')";
 
-  // Execute the statement
-  if ($stmt->execute()) {
-    echo "New record created successfully";
-  } else {
-    echo "Error: " . $stmt->error;
-  }
+    if ($conn->query($sql) === TRUE) {
+      $_SESSION['message'] = "<div id='message' class='alert alert-success'>New record created successfully</div>";
+    } else {
+      $_SESSION['message'] = "<div id='message' class='alert alert-danger'>Error: " . $conn->error . "</div>";
+    }
 
-  // Close connections
-  $stmt->close();
-  $conn->close();
-  ?>
+    $conn->close();
 
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
