@@ -1,13 +1,58 @@
+<?php
+session_start();
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+$servername = "localhost";
+$username = "root"; 
+$password = ""; 
+$dbname = "bcpclinic_db";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$error = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['accountId']) && isset($_POST['password'])) {
+        $accountId = $_POST['accountId'];
+        $password = $_POST['password'];
+
+        // SQL injection prevention
+        $accountId = $conn->real_escape_string($accountId);
+        $password = $conn->real_escape_string($password);
+
+        $sql = "SELECT * FROM head_db WHERE `accountID` = '$accountId' AND `password` = '$password'";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            $_SESSION['accountId'] = $accountId;
+            header("Location: index.php"); 
+            exit(); 
+        } else {
+            $error = "Invalid Account ID or Password";
+        }
+    } else {
+        $error = "Please enter both Account ID and Password";
+    }
+}
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Login page for PrecisionCare Hospital's Clinic Management System.">
     <title>Login - CMS</title>
-    <link rel="stylesheet" href="css/style.css">
 </head>
 <style>
-body {
+    body {
     background-color: #f4f4f4;
     font-family: Arial, sans-serif;
     display: flex;
@@ -19,22 +64,30 @@ body {
 }
 
 .logo {
-    margin-bottom: 20px;
+    text-align: center;
+    margin-bottom: 5px;
 }
 
 .logo img {
-    width: 60px;
+    max-width: 30%;
     height: auto;
 }
 
-.login-container {
+.logo p {
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #333; 
+}
+
+.login-container {  
     background-color: white;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 300px;
     text-align: center;
-    border: 1px solid black; /* Updated border color to black */
+    border: 1px solid #999797;
+    margin: 0 auto;
 }
 
 h2 {
@@ -49,6 +102,12 @@ label {
     margin: 10px 0 5px;
 }
 
+#accountId, #password {
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid black;
+}
+
 input[type="text"],
 input[type="password"] {
     width: 100%;
@@ -57,13 +116,6 @@ input[type="password"] {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Adding transition for smooth hover effect */
-}
-
-input[type="text"]:hover,
-input[type="password"]:hover {
-    border-color: #333; /* Change border color on hover */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Add subtle shadow on hover */
 }
 
 .forgot-password {
@@ -90,35 +142,35 @@ button {
     width: 100%;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s ease, border-color 0.3s ease; /* Adding transition for smooth hover effect */
 }
 
 button:hover {
-    background-color: #555; /* Darker shade on hover */
+    background-color: #555;
 }
 </style>
-
 <body>
     <div class="logo">
-        <img src="assets/img/bcp logo.png" alt="Clinic Management System">
+        <img src="assets/img/bcp logo.png" alt="Logo">
+        <p>Clinic Management System</p> 
     </div>
+    
     <div class="login-container">
         <h2>Log Into Your Account</h2>
-        <form id="loginForm">
+        <form id="loginForm" action="login.php" method="post">
             <label for="accountId">Account ID</label>
-            <input type="text" id="accountId" name="accountId" required>
+            <input type="text" id="accountId" name="accountId" required aria-label="Account ID">
 
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" required aria-label="Password">
 
             <div class="forgot-password">
-                <a href="#">Forgot your password?</a>
+                <a href="#" aria-label="Forgot password?">Forgot your password?</a>
             </div>
 
             <button type="submit">LOGIN</button>
         </form>
     </div>
 
-    <script src="loginsc.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
