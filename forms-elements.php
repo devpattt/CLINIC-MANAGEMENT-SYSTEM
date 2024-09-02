@@ -271,12 +271,12 @@
         <ul id="forms-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
           <li>
             <a href="forms-elements.php" class="active">
-              <i class="bi bi-circle"></i><span>Add Record</span>
+              <i class="bi bi-circle"></i><span>Add Records</span>
             </a>
           </li>
           <li>
             <a href="tables-data.php" >
-              <i class="bi bi-circle"></i><span>Data Tables</span>
+              <i class="bi bi-circle"></i><span>Patient Records</span>
             </a>
           </li>
         </ul>
