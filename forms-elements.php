@@ -24,20 +24,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $condition = $_POST['condition'];
     $note = $_POST['note'];
 
-     $sql = "INSERT INTO patient_info (fullname, student_number, contact, gender, age, temperature, date, time, `condition`, note)
-     VALUES ('$fullname', '$student_number', '$contact', '$gender', '$age', '$temperature', '$date', '$time', '$condition', '$note')";
+    // Prepare the SQL statement
+    $stmt = $conn->prepare("INSERT INTO patient_info (fullname, student_number, contact, gender, age, temperature, date, time, `condition`, note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssisssss", $fullname, $student_number, $contact, $gender, $age, $temperature, $date, $time, $condition, $note);
 
-    if ($conn->query($sql) === TRUE) {
-      $_SESSION['message'] = "<div id='message' class='alert alert-success'>New record created successfully</div>";
+    if ($stmt->execute()) {
+        $_SESSION['message'] = "<div id='message' class='alert alert-success'>New record created successfully</div>";
     } else {
-      $_SESSION['message'] = "<div id='message' class='alert alert-danger'>Error: " . $conn->error . "</div>";
+        $_SESSION['message'] = "<div id='message' class='alert alert-danger'>Error: " . $stmt->error . "</div>";
     }
 
+    $stmt->close();
     $conn->close();
 
-    header("Location: " . $_SERVER['PHP_SELF']);
+    header("Location: forms-elements.php");
     exit();
-    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -398,27 +400,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <!-- General Form Elements -->
                 <form method="post" action="forms-elements.php">
                   <div class="row mb-3">
-                    <label for="inputText" class="col-sm-2 col-form-label">Fullname</label>
+                    <label for="fullname" class="col-sm-2 col-form-label">Fullname</label>
                     <div class="col-sm-10">
-                      <input type="text" name="fullname" class="form-control" placeholder="Enter Fullname">
+                      <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Enter Fullname">
                     </div>
                   </div>
                   <div class="row mb-3">
-                    <label for="inputEmail" class="col-sm-2 col-form-label">Student Number</label>
+                    <label for="student_number" class="col-sm-2 col-form-label">Student Number</label>
                     <div class="col-sm-10">
-                      <input type="email" name="student_number" class="form-control" placeholder="Enter Student Number">
+                      <input type="email" id="student_number" name="student_number" class="form-control" placeholder="Enter Student Number">
                     </div>
                   </div>
                   <div class="row mb-3">
-                    <label for="inputEmail" class="col-sm-2 col-form-label">Contact</label>
+                    <label for="contact" class="col-sm-2 col-form-label">Contact</label>
                     <div class="col-sm-10">
-                      <input type="email" name="contact" class="form-control" placeholder="Enter Contact">
+                      <input type="email" id="contact"  name="contact" class="form-control" placeholder="Enter Contact">
                     </div>
                   </div>
                   <div class="row mb-3">
-                    <label for="inputGender" class="col-sm-2 col-form-label">Gender</label>
+                    <label for="gender" class="col-sm-2 col-form-label">Gender</label>
                     <div class="col-sm-10">
-                      <select class="form-control" id="inputGender" name="gender">
+                      <select class="form-control" id="gender" name="gender">
                         <option value="">Select Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
@@ -429,16 +431,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   </div>
 
                   <div class="row mb-3">
-                      <label for="inputNumber" class="col-sm-2 col-form-label">Age</label>
+                      <label for="age" class="col-sm-2 col-form-label">Age</label>
                       <div class="col-sm-10">
-                        <input type="number" class="form-control" id="inputNumber" name="age" placeholder="Enter Age" min="1" max="100" required>
+                        <input type="number" class="form-control" id="age" name="age" placeholder="Enter Age" min="1" max="100" required>
                       </div>
                     </div>
 
                   <div class="row mb-3">
-                    <label for="inputTemp" class="col-sm-2 col-form-label">Temp (°C)</label>
+                    <label for="temperature" class="col-sm-2 col-form-label">Temp (°C)</label>
                     <div class="col-sm-10">
-                      <input type="number" class="form-control" id="inputTemp" name="temperature" placeholder="Enter temperature" step="0.1" min="-50" max="50">
+                      <input type="number" class="form-control" id="temperature" name="temperature" placeholder="Enter temperature" step="0.1" min="-50" max="50">
                     </div>
                   </div>
 
@@ -454,24 +456,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <h5 class="card-title">Additional Informations</h5>
                 
                 <!-- Advanced Form Elements -->
-                <form>
+                <form method="post" action="forms-elements.php">
                 <div class="row mb-3">
-                    <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
+                    <label for="date" class="col-sm-2 col-form-label">Date</label>
                     <div class="col-sm-10">
-                      <input type="date" class="form-control" id="inputDate" name="date" required>
+                      <input type="date" class="form-control" id="date" name="date" required>
                     </div>
                   </div>
                   <div class="row mb-3">
-                    <label for="inputTime" class="col-sm-2 col-form-label">Time</label>
+                    <label for="time" class="col-sm-2 col-form-label">Time</label>
                     <div class="col-sm-10">
-                      <input type="time" class="form-control" id="inputTime" name="time" required>
+                      <input type="time" class="form-control" id="time" name="time" required>
                     </div>
                   </div>
 
                   <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label">Condition</label>
+                      <label for="condition" class="col-sm-2 col-form-label">Condition</label>
                       <div class="col-sm-10">
-                      <select class="form-select" style="border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border: 1px solid black;" name="condition" aria-label="Select Condition">  
+                      <select class="form-select" style="border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border: 1px solid black;" id="condition" name="condition" aria-label="Select Condition">  
                           <option selected disabled>Open this select menu</option>
                           <option value="fever">Fever</option>
                           <option value="cough">Cough</option>
@@ -483,11 +485,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                       </div>
                     </div>
 
-
                     <div class="row mb-3">
-                      <label for="inputPassword" class="col-sm-2 col-form-label">Note</label>
+                      <label for="note" class="col-sm-2 col-form-label">Note</label>
                         <div class="col-sm-10">
-                          <textarea class="form-control" style="height: 100px" name="note" placeholder="Enter Recommendations"></textarea>
+                          <textarea class="form-control" style="height: 100px" id="note" name="note" placeholder="Enter Recommendations"></textarea>
                         </div>
                   </div>
 
@@ -498,6 +499,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                           </div>
                         </form>
+                        
                       </div>
                     </div>
                   </div>
@@ -522,7 +524,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   <script>
   document.addEventListener('DOMContentLoaded', function() {
-    var dateInput = document.getElementById('inputDate');
+    var dateInput = document.getElementById('date');
     
     var today = new Date();
     var year = today.getFullYear();
@@ -533,8 +535,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     dateInput.setAttribute('min', todayDate);
   });
 
-  document.getElementById('inputNumber').addEventListener('input', function() {
-    var ageInput = document.getElementById('inputNumber');
+  document.getElementById('age').addEventListener('input', function() {
+    var ageInput = document.getElementById('age');
     var ageValue = ageInput.value;
     }
   );
