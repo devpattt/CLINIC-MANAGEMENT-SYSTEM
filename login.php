@@ -22,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $accountId = $_POST['accountId'];
         $password = $_POST['password'];
 
-        // SQL injection prevention
         $accountId = $conn->real_escape_string($accountId);
         $password = $conn->real_escape_string($password);
 
