@@ -356,35 +356,48 @@
               <!-- General Form Elements -->
               <form>
                 <div class="row mb-3">
-                  <label for="inputText" class="col-sm-2 col-form-label">Lastname</label>
+                  <label for="inputText" class="col-sm-2 col-form-label">Fullname</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" placeholder="Enter Fullname">
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="inputEmail" class="col-sm-2 col-form-label">Firstname</label>
+                  <label for="inputEmail" class="col-sm-2 col-form-label">Student Number</label>
                   <div class="col-sm-10">
-                    <input type="email" class="form-control">
+                    <input type="email" class="form-control" placeholder="Enter Student Number">
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="inputEmail" class="col-sm-2 col-form-label">Middle Initial</label>
+                  <label for="inputEmail" class="col-sm-2 col-form-label">Contact</label>
                   <div class="col-sm-10">
-                    <input type="email" class="form-control">
+                    <input type="email" class="form-control" placeholder="Enter Contact">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputGender" class="col-sm-2 col-form-label">Gender</label>
+                  <div class="col-sm-10">
+                    <select class="form-control" id="inputGender" name="gender">
+                      <option value="">Select Gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="other">Other</option>
+                      <option value="prefer_not_to_say">Prefer not to say</option>
+                    </select>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputNumber" class="col-sm-2 col-form-label">Age</label>
                   <div class="col-sm-10">
-                    <input type="number" class="form-control">
+                    <input type="number" class="form-control" placeholder="Enter Age">
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="inputNumber" class="col-sm-2 col-form-label">File Upload</label>
+                  <label for="inputTemp" class="col-sm-2 col-form-label">Temp (°C)</label>
                   <div class="col-sm-10">
-                    <input class="form-control" type="file" id="formFile">
+                    <input type="number" class="form-control" id="inputTemp" name="temperature" placeholder="Enter temperature" step="0.1" min="-50" max="50">
                   </div>
                 </div>
+
               </form><!-- End General Form Elements -->
             </div>
           </div>
@@ -401,19 +414,20 @@
               <div class="row mb-3">
                   <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
                   <div class="col-sm-10">
-                    <input type="date" class="form-control">
+                    <input type="date" class="form-control" id="inputDate" name="date" required>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputTime" class="col-sm-2 col-form-label">Time</label>
                   <div class="col-sm-10">
-                    <input type="time" class="form-control">
+                    <input type="time" class="form-control" id="inputTime" name="time" required>
                   </div>
                 </div>
+
                 <div class="row mb-3">
                   <label for="inputPassword" class="col-sm-2 col-form-label">Note</label>
                   <div class="col-sm-10">
-                    <textarea class="form-control" style="height: 100px"></textarea>
+                    <textarea class="form-control" style="height: 100px" placeholder="Enter Recommendations"></textarea>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -450,5 +464,20 @@
   <script src="assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/js/main.js"></script>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var dateInput = document.getElementById('inputDate');
+    
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = String(today.getMonth() + 1).padStart(2, '0');  
+    var day = String(today.getDate()).padStart(2, '0');
+
+    var todayDate = year + '-' + month + '-' + day;
+    dateInput.setAttribute('min', todayDate);
+  });
+</script>
+
 </body>
 </html>
