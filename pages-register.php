@@ -79,7 +79,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <p class="text-center small">Enter personal details to create account</p>
                   </div>
 
-                  <!-- Display success or error message here -->
                   <?php if (isset($_SESSION['message'])) echo $_SESSION['message']; ?>
 
                   <form class="row g-3 needs-validation" action="pages-register.php" method="POST" novalidate>
