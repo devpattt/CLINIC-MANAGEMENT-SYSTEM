@@ -28,6 +28,12 @@ h6 {
   font-family: "Nunito", sans-serif;
 }
 
+.col-sm-10 .form-control {
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid black; 
+}
+
 /*--------------------------------------------------------------
 # Main
 --------------------------------------------------------------*/
