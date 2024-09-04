@@ -12,34 +12,41 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $fullname = $_POST['fullname'];
-    $student_number = $_POST['student_number'];
-    $contact = $_POST['contact'];
-    $gender = $_POST['gender'];
-    $age = $_POST['age'];
-    $temperature = $_POST['temperature'];
-    $date = $_POST['date'];
-    $time = $_POST['time'];
-    $condition = $_POST['condition'];
-    $note = $_POST['note'];
+$fullname = $_POST['fullname'] ?? "";
+$student_number = $_POST['student_number'] ?? "";
+$contact = $_POST['contact'] ?? "";
+$gender = $_POST['gender'] ?? "";
+$age = $_POST['age'] ?? "";
+$temperature = $_POST['temperature'] ?? "";
 
-    $stmt = $conn->prepare("INSERT INTO patient_info (fullname, student_number, contact, gender, age, temperature, date, time, `condition`, note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssisssss", $fullname, $student_number, $contact, $gender, $age, $temperature, $date, $time, $condition, $note);
+$date = $_POST['date'] ?? "";
+$time = $_POST['time'] ?? "";
+$condition = $_POST['condition'] ?? "";
+$note = $_POST['note'] ?? "";
 
-    if ($stmt->execute()) {
-        $_SESSION['message'] = "<div id='message' class='alert alert-success'>New record created successfully</div>";
+$query = "INSERT INTO patient_info (fullname, student_number, contact, gender, age, temperature, date, time, `condition`, note) 
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+$stmt = $conn->prepare($query);
+
+if ($stmt) {
+    $stmt->bind_param('ssssisssss', $fullname, $student_number, $contact, $gender, $age, $temperature, $date, $time, $condition, $note);
+    $stmt->execute();
+
+    if ($stmt->error) {
+        die('Insert Error: ' . $stmt->error);
     } else {
-        $_SESSION['message'] = "<div id='message' class='alert alert-danger'>Error: " . $stmt->error . "</div>";
+        echo 'Form submitted successfully!';
     }
 
     $stmt->close();
-    $conn->close();
-
-    header("Location: forms-elements.php");
-    exit();
+} else {
+    die('Prepare Error: ' . $conn->error);
 }
+
+$conn->close();
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -494,7 +501,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   <div class="row mb-3">
                     <label class="col-sm-2 col-form-label"></label>
                     <div class="col-sm-10">
-                      <button type="submit" class="btn btn-primary">Submit Form</button>
+                      <button id="submitBtn" type="submit" class="btn btn-primary">Submit Form</button>
                             </div>
                           </div>
                         </form>
@@ -539,9 +546,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     var ageValue = ageInput.value;
     }
   );
+  document.getElementById('submitBtn').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default form submission
 
-  document.getElementById('submitBtn').addEventListener('click', function() {
-    // Create a FormData object to hold the combined data
     var combinedData = new FormData();
 
     // Get data from Form 1
@@ -563,18 +570,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Send the combined data via AJAX
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'forms-elements.php', true);
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            // Handle success (e.g., show a success message)
-            alert('Form submitted successfully!');
-        } else {
-            // Handle error
-            alert('An error occurred: ' + xhr.statusText);
-        }
-    };
-    xhr.send(combinedData);
+    fetch('forms-elements.php', {
+        method: 'POST',
+        body: combinedData
+    })
+    .then(response => response.text())
+    .then(result => alert('Form submitted successfully!'))
+    .catch(error => alert('An error occurred: ' + error));
 });
 
 </script>
