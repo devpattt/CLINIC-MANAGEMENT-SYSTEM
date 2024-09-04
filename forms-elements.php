@@ -397,7 +397,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <h5 class="card-title">Patient informations</h5>
 
                 <!-- General Form Elements -->
-                <form method="post" action="forms-elements.php">
+                <form id="form1" method="post" action="forms-elements.php">
                   <div class="row mb-3">
                     <label for="fullname" class="col-sm-2 col-form-label">Fullname</label>
                     <div class="col-sm-10">
@@ -455,7 +455,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <h5 class="card-title">Additional Informations</h5>
                 
                 <!-- Advanced Form Elements -->
-                <form method="post" action="forms-elements.php">
+                <form id="form2" method="post" action="forms-elements.php">
                 <div class="row mb-3">
                     <label for="date" class="col-sm-2 col-form-label">Date</label>
                     <div class="col-sm-10">
@@ -539,6 +539,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     var ageValue = ageInput.value;
     }
   );
+
+  document.getElementById('submitBtn').addEventListener('click', function() {
+    // Create a FormData object to hold the combined data
+    var combinedData = new FormData();
+
+    // Get data from Form 1
+    var form1 = document.getElementById('form1');
+    for (var i = 0; i < form1.elements.length; i++) {
+        var element = form1.elements[i];
+        if (element.name) {
+            combinedData.append(element.name, element.value);
+        }
+    }
+
+    // Get data from Form 2
+    var form2 = document.getElementById('form2');
+    for (var i = 0; i < form2.elements.length; i++) {
+        var element = form2.elements[i];
+        if (element.name) {
+            combinedData.append(element.name, element.value);
+        }
+    }
+
+    // Send the combined data via AJAX
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'forms-elements.php', true);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            // Handle success (e.g., show a success message)
+            alert('Form submitted successfully!');
+        } else {
+            // Handle error
+            alert('An error occurred: ' + xhr.statusText);
+        }
+    };
+    xhr.send(combinedData);
+});
+
 </script>
 
 </body>
