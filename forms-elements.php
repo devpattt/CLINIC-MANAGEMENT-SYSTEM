@@ -43,13 +43,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             echo 'Form submitted successfully!';
         }
-        
+
         $stmt->close();
     } else {
         die('Prepare Error: ' . $conn->error);
     }
 
-    // Close connection
     $conn->close();
 
     // Redirect to avoid form resubmission on refresh
