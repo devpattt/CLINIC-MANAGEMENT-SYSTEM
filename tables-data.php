@@ -382,11 +382,11 @@
                 <thead>
                   <tr>
                     <th>
-                      <b>N</b>ame
+                      <b>Full</b>name
                     </th>
-                    <th>Ext.</th>
-                    <th>City</th>
-                    <th data-type="date" data-format="YYYY/DD/MM">Start Date</th>
+                    <th>Student Number</th>
+                    <th>Contact</th>
+                    <th data-type="date" data-format="YYYY/DD/MM">Date</th>
                     <th>Completion</th>
                   </tr>
                 </thead>
