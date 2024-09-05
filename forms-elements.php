@@ -37,11 +37,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param('ssssisssss', $fullname, $student_number, $contact, $gender, $age, $temperature, $date, $time, $condition, $note);
         
         $stmt->execute();
-        
+
         if ($stmt->error) {
             die('Insert Error: ' . $stmt->error);
         } else {
-            // Success message
             echo 'Form submitted successfully!';
         }
 
