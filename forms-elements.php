@@ -37,8 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param('ssssisssss', $fullname, $student_number, $contact, $gender, $age, $temperature, $date, $time, $condition, $note);
         
         $stmt->execute();
-
-        // Check for errors
+        
         if ($stmt->error) {
             die('Insert Error: ' . $stmt->error);
         } else {
