@@ -13,7 +13,6 @@ if ($conn->connect_error) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Fetch form data
     $fullname = $_POST['fullname'] ?? "";
     $student_number = $_POST['student_number'] ?? "";
     $contact = $_POST['contact'] ?? "";
