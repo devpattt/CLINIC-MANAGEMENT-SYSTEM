@@ -6,7 +6,6 @@ $username = "root";
 $password = "";
 $dbname = "bcpclinic_db";
 
-// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
