@@ -6,44 +6,65 @@ $username = "root";
 $password = "";
 $dbname = "bcpclinic_db";
 
+// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
+// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$fullname = $_POST['fullname'] ?? "";
-$student_number = $_POST['student_number'] ?? "";
-$contact = $_POST['contact'] ?? "";
-$gender = $_POST['gender'] ?? "";
-$age = $_POST['age'] ?? "";
-$temperature = $_POST['temperature'] ?? "";
+// Check if form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Fetch form data
+    $fullname = $_POST['fullname'] ?? "";
+    $student_number = $_POST['student_number'] ?? "";
+    $contact = $_POST['contact'] ?? "";
+    $gender = $_POST['gender'] ?? "";
+    $age = $_POST['age'] ?? "";
+    $temperature = $_POST['temperature'] ?? "";
+    $date = $_POST['date'] ?? "";
+    $time = $_POST['time'] ?? "";
+    $condition = $_POST['condition'] ?? "";
+    $note = $_POST['note'] ?? "";
 
-$date = $_POST['date'] ?? "";
-$time = $_POST['time'] ?? "";
-$condition = $_POST['condition'] ?? "";
-$note = $_POST['note'] ?? "";
+    // Prepare SQL query
+    $query = "INSERT INTO patient_info (fullname, student_number, contact, gender, age, temperature, date, time, `condition`, note) 
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    $stmt = $conn->prepare($query);
 
-$query = "INSERT INTO patient_info (fullname, student_number, contact, gender, age, temperature, date, time, `condition`, note) 
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-$stmt = $conn->prepare($query);
+    if ($stmt) {
+        // Bind parameters
+        $stmt->bind_param('ssssisssss', $fullname, $student_number, $contact, $gender, $age, $temperature, $date, $time, $condition, $note);
+        
+        // Execute query
+        $stmt->execute();
 
-if ($stmt) {
-    $stmt->bind_param('ssssisssss', $fullname, $student_number, $contact, $gender, $age, $temperature, $date, $time, $condition, $note);
-    $stmt->execute();
+        // Check for errors
+        if ($stmt->error) {
+            die('Insert Error: ' . $stmt->error);
+        } else {
+            // Success message
+            echo 'Form submitted successfully!';
+        }
 
-    if ($stmt->error) {
-        die('Insert Error: ' . $stmt->error);
+        // Close the statement
+        $stmt->close();
     } else {
-        echo 'Form submitted successfully!';
+        die('Prepare Error: ' . $conn->error);
     }
 
-    $stmt->close();
-} else {
-    die('Prepare Error: ' . $conn->error);
-}
+    // Close connection
+    $conn->close();
 
-$conn->close();
+    // Redirect to avoid form resubmission on refresh
+    header("Location: forms-elements.php");
+    exit();
+} else {
+    // Handle if page is accessed without form submission
+    echo 'No form submitted!';
+}
 ?>
 
 
@@ -408,25 +429,25 @@ $conn->close();
                   <div class="row mb-3">
                     <label for="fullname" class="col-sm-2 col-form-label">Fullname</label>
                     <div class="col-sm-10">
-                      <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Enter Fullname">
+                      <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Enter Fullname" required>
                     </div>
                   </div>
                   <div class="row mb-3">
                     <label for="student_number" class="col-sm-2 col-form-label">Student Number</label>
                     <div class="col-sm-10">
-                      <input type="email" id="student_number" name="student_number" class="form-control" placeholder="Enter Student Number">
+                      <input type="email" id="student_number" name="student_number" class="form-control" placeholder="Enter Student Number" required>
                     </div>
                   </div>
                   <div class="row mb-3">
                     <label for="contact" class="col-sm-2 col-form-label">Contact</label>
                     <div class="col-sm-10">
-                      <input type="email" id="contact"  name="contact" class="form-control" placeholder="Enter Contact">
+                      <input type="email" id="contact"  name="contact" class="form-control" placeholder="Enter Contact" required>
                     </div>
                   </div>
                   <div class="row mb-3">
                     <label for="gender" class="col-sm-2 col-form-label">Gender</label>
                     <div class="col-sm-10">
-                      <select class="form-control" id="gender" name="gender">
+                      <select class="form-control" id="gender" name="gender" required>
                         <option value="">Select Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
@@ -446,7 +467,7 @@ $conn->close();
                   <div class="row mb-3">
                     <label for="temperature" class="col-sm-2 col-form-label">Temp (°C)</label>
                     <div class="col-sm-10">
-                      <input type="number" class="form-control" id="temperature" name="temperature" placeholder="Enter temperature" step="0.1" min="-50" max="50">
+                      <input type="number" class="form-control" id="temperature" name="temperature" placeholder="Enter temperature" step="0.1" min="-50" max="50" required>
                     </div>
                   </div>
 
@@ -479,7 +500,7 @@ $conn->close();
                   <div class="row mb-3">
                       <label for="condition" class="col-sm-2 col-form-label">Condition</label>
                       <div class="col-sm-10">
-                      <select class="form-select" style="border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border: 1px solid black;" id="condition" name="condition" aria-label="Select Condition">  
+                      <select class="form-select" style="border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border: 1px solid black;" id="condition" name="condition" aria-label="Select Condition" required>  
                           <option selected disabled>Open this select menu</option>
                           <option value="fever">Fever</option>
                           <option value="cough">Cough</option>
@@ -494,7 +515,7 @@ $conn->close();
                     <div class="row mb-3">
                       <label for="note" class="col-sm-2 col-form-label">Note</label>
                         <div class="col-sm-10">
-                          <textarea class="form-control" style="height: 100px" id="note" name="note" placeholder="Enter Recommendations"></textarea>
+                          <textarea class="form-control" style="height: 100px" id="note" name="note" placeholder="Enter Recommendations" required></textarea>
                         </div>
                   </div>
 
@@ -546,13 +567,47 @@ $conn->close();
     var ageValue = ageInput.value;
     }
   );
-  document.getElementById('submitBtn').addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent default form submission
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Set the minimum date for the date input
+    var dateInput = document.getElementById('date');
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = String(today.getMonth() + 1).padStart(2, '0');  
+    var day = String(today.getDate()).padStart(2, '0');
+    var todayDate = year + '-' + month + '-' + day;
+    dateInput.setAttribute('min', todayDate);
+});
+
+document.getElementById('submitBtn').addEventListener('click', function(event) {
+    event.preventDefault(); 
+
+    var form1 = document.getElementById('form1');
+    var form2 = document.getElementById('form2');
+
+    // Function to check if all inputs in a form are filled
+    function areAllInputsFilled(form) {
+        for (var i = 0; i < form.elements.length; i++) {
+            var element = form.elements[i];
+            if (element.tagName === 'INPUT' && element.type !== 'button' && !element.value) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Validate both forms
+    if (!areAllInputsFilled(form1) || !areAllInputsFilled(form2)) {
+        alert('Please fill all the fields in both forms.');
+        return;
+    }
 
     var combinedData = new FormData();
 
-    // Get data from Form 1
-    var form1 = document.getElementById('form1');
+    // Append data from form1
     for (var i = 0; i < form1.elements.length; i++) {
         var element = form1.elements[i];
         if (element.name) {
@@ -560,8 +615,7 @@ $conn->close();
         }
     }
 
-    // Get data from Form 2
-    var form2 = document.getElementById('form2');
+    // Append data from form2
     for (var i = 0; i < form2.elements.length; i++) {
         var element = form2.elements[i];
         if (element.name) {
@@ -569,15 +623,19 @@ $conn->close();
         }
     }
 
-    // Send the combined data via AJAX
     fetch('forms-elements.php', {
         method: 'POST',
         body: combinedData
     })
     .then(response => response.text())
-    .then(result => alert('Form submitted successfully!'))
+    .then(result => {
+        alert('Forms submitted successfully!');
+        window.location.href = 'forms-elements.php'; // Redirect after successful submission
+    })
     .catch(error => alert('An error occurred: ' + error));
 });
+
+
 
 </script>
 
