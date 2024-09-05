@@ -50,11 +50,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $conn->close();
-    
+
     header("Location: forms-elements.php");
     exit();
 } else {
-    // Handle if page is accessed without form submission
     echo 'No form submitted!';
 }
 ?>
