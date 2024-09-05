@@ -43,8 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             echo 'Form submitted successfully!';
         }
-
-        // Close the statement
+        
         $stmt->close();
     } else {
         die('Prepare Error: ' . $conn->error);
