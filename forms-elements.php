@@ -50,8 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $conn->close();
-
-    // Redirect to avoid form resubmission on refresh
+    
     header("Location: forms-elements.php");
     exit();
 } else {
