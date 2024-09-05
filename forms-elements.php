@@ -28,14 +28,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $condition = $_POST['condition'] ?? "";
     $note = $_POST['note'] ?? "";
 
-    // Prepare SQL query
     $query = "INSERT INTO patient_info (fullname, student_number, contact, gender, age, temperature, date, time, `condition`, note) 
               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
     $stmt = $conn->prepare($query);
 
     if ($stmt) {
-        // Bind parameters
         $stmt->bind_param('ssssisssss', $fullname, $student_number, $contact, $gender, $age, $temperature, $date, $time, $condition, $note);
         
         // Execute query
