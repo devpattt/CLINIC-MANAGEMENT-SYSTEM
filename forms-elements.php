@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" name="query" placeholder="Search" title="Enter search keyword">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
       </form>
-    </div><!-- End Search Bar -->
+    </div>
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
