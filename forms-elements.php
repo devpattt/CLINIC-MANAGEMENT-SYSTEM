@@ -292,8 +292,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <span>Sign Out</span>
               </a>
             </li>
-
-          </ul><!-- End Profile Dropdown Items -->
+          </ul>
         </li><!-- End Profile Nav -->
 
       </ul>
