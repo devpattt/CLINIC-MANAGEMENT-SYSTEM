@@ -237,10 +237,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <li class="dropdown-footer">
               <a href="#">Show all messages</a>
             </li>
-
           </ul>
-
-        </li><!-- End Messages Nav -->
+        </li>
 
         <li class="nav-item dropdown pe-3">
 
