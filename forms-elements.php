@@ -293,7 +293,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               </a>
             </li>
           </ul>
-        </li><!-- End Profile Nav -->
+        </li>
 
       </ul>
     </nav><!-- End Icons Navigation -->
