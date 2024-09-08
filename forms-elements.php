@@ -294,7 +294,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </li>
           </ul>
         </li>
-
       </ul>
     </nav><!-- End Icons Navigation -->
 
