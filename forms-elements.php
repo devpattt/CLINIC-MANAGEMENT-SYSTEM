@@ -177,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
           </ul><!-- End Notification Dropdown Items -->
 
-        </li><!-- End Notification Nav -->
+        </li>
 
         <li class="nav-item dropdown">
 
