@@ -174,11 +174,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <li class="dropdown-footer">
               <a href="#">Show all notifications</a>
             </li>
-
           </ul>
-
         </li>
-
         <li class="nav-item dropdown">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
