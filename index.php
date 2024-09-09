@@ -20,7 +20,6 @@
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
   <link href="assets/css/style.css" rel="stylesheet">
 </head>
-
 <body>
   <header id="header" class="header fixed-top d-flex align-items-center">
 
