@@ -511,9 +511,7 @@
                     });
                   </script>
                   <!-- End Line Chart -->
-
                 </div>
-
               </div>
             </div><!-- End Reports -->
 
