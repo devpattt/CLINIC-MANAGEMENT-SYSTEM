@@ -484,7 +484,7 @@
                         colors: ['#4154f1', '#2eca6a', '#ff771d'],
                         fill: {
                           type: "gradient",
-                          gradient: {
+                          gradient: 
                             shadeIntensity: 1,
                             opacityFrom: 0.3,
                             opacityTo: 0.4,
