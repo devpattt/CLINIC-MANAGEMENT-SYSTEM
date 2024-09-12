@@ -19,26 +19,37 @@ $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['accountId']) && isset($_POST['password'])) {
-        $accountId = $_POST['accountId'];
-        $password = $_POST['password'];
+        $accountId = $conn->real_escape_string($_POST['accountId']);
+        $password = $conn->real_escape_string($_POST['password']);
 
-        $accountId = $conn->real_escape_string($accountId);
-        $password = $conn->real_escape_string($password);
-
+        // Check admin credentials
         $sql = "SELECT * FROM head_db WHERE `accountID` = '$accountId' AND `password` = '$password'";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
             $_SESSION['accountId'] = $accountId;
-            header("Location: index.php"); 
-            exit(); 
-        } else {
-            $error = "Invalid Account ID or Password";
+            $_SESSION['role'] = 'admin'; // Set role to admin
+            header("Location: admin.php");
+            exit();
         }
+
+        // Check nurse credentials
+        $sql = "SELECT * FROM nurse_db WHERE `accountID` = '$accountId' AND `password` = '$password'";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            $_SESSION['accountId'] = $accountId;
+            $_SESSION['role'] = 'nurse'; // Set role to nurse
+            header("Location: index.php");
+            exit();
+        }
+
+        $error = "Invalid Account ID or Password";
     } else {
         $error = "Please enter both Account ID and Password";
     }
 }
+
 $conn->close();
 ?>
 
