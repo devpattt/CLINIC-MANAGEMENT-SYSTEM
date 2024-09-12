@@ -64,6 +64,7 @@ $conn->close();
 <style>
     body {
     background-color: #f4f4f4;
+    /*background-image: url('assets/img/bcp\ bg.jpg');*/
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
